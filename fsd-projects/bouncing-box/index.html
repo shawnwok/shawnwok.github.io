@@ -8,7 +8,7 @@
       .box {
         width: 70px;
         height: 70px;
-        background-color: teal;
+        background-color: rgb(128, 0, 0);
         font-size: 300%;
         text-align: center;
         user-select: none;
@@ -54,9 +54,24 @@
         // Every time the box is clicked, call the handleBoxClick Function (see below)
         box.on("click", handleBoxClick);
 
-        // moves the Box to a new position on the screen along the X-Axis
-        function moveBoxTo(newPositionX) {
+        // TODO 2 - Variable declarations
+        var positionX = 0;
+        var positionY = 100; // Start at 100px from the top
+        var points = 0;
+        var speed = 10;
+        var speedY = 8; // Vertical speed
+        var boardHeight = jQuery(window).height();
+
+        // Update boardHeight on resize
+        jQuery(window).on("resize", function () {
+          boardWidth = board.width();
+          boardHeight = jQuery(window).height();
+        });
+
+        // moves the Box to a new position on the screen along the X and Y Axis
+        function moveBoxTo(newPositionX, newPositionY) {
           box.css("left", newPositionX);
+          box.css("top", newPositionY);
         }
 
         // changes the text displayed on the Box
@@ -68,30 +83,32 @@
         /////////////////// YOUR CODE BELOW HERE /////////////////////////
         //////////////////////////////////////////////////////////////////
 
-        // TODO 2 - Variable declarations
-        var positionX = 0;
-        var points = 0;
-        var speed = 10;
-        var positionY;
-        var speedY;
-        var boardHeight = jQuery(window).height();
-
-
-
-
-
         /**
          * This Function will be called 20 times/second.
          * Each time it is called, it should move the Box to a new location.
          * If the box drifts off the screen, turn it around!
          */
         function update() {
-          moveBoxTo(positionX); // Only pass positionX
+          moveBoxTo(positionX, positionY);
           positionX = positionX + speed;
+          positionY = positionY + speedY;
+
+          // Bounce horizontally
           if (positionX > boardWidth - box.width()) {
             speed *= -1;
+            positionX = boardWidth - box.width();
           } else if (positionX < 0) {
             speed *= -1;
+            positionX = 0;
+          }
+
+          // Bounce vertically
+          if (positionY > boardHeight - box.height()) {
+            speedY *= -1;
+            positionY = boardHeight - box.height();
+          } else if (positionY < 0) {
+            speedY *= -1;
+            positionY = 0;
           }
         }
 
@@ -103,18 +120,13 @@
          * - move the box to the left side of the screen.
          */
         function handleBoxClick() {
-          positionX = 0;
-          changeBoxText(points);
           points += 1;
+          positionX = 0;
+          positionY = 0; // Reset to top-left
+          changeBoxText(points);
           speed = 3 * points + 10;
-
-
-
-
+          speedY = 2 * points + 8; // Optionally increase vertical speed too
         }
-
-
-        
       })();
     </script>
   </body>
