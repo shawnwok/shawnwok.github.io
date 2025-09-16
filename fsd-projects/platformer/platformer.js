@@ -64,7 +64,7 @@ $(function () {
     //createCannon("left", 225, 2000);
    // createCannon("left", 400, 360);
     //createCannon("right", 500, 1996);
-    //createCannon("right", 600, 360);
+    createCannon("right", 620, 3000);
     createCannon("left", 625, 1998);
     
 
