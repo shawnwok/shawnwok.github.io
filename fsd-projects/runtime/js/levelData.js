@@ -18,6 +18,12 @@ var makeLevelData = function (window) {
           { type: "sawblade", x: 400, y: groundY },
           { type: "sawblade", x: 600, y: groundY },
           { type: "sawblade", x: 900, y: groundY },
+          { type: "sawblade", x: 400, y: groundY },
+          { type: "chainsaw", x: 400, y: groundY },
+          { type: "enemies", x: 400, y: groundY },
+          { type: "reward", x: 400, y: groundY },
+
+
         ],
       },
       {
@@ -28,8 +34,31 @@ var makeLevelData = function (window) {
           { type: "sawblade", x: 400, y: groundY },
           { type: "sawblade", x: 600, y: groundY },
           { type: "sawblade", x: 900, y: groundY },
+          { type: "chainsaw", x: 400, y: groundY },
+          { type: "enemies", x: 400, y: groundY },
+          { type: "reward", x: 400, y: groundY },
+
         ],
       },
+      {
+        name : "Robot DESTRUCTION",
+        number: 1,
+        speed: -3,
+        gameItems: [
+          { type: "sawblade", x: 400, y: groundY },
+          { type: "sawblade", x: 600, y: groundY },
+          { type: "sawblade", x: 900, y: groundY },
+          { type: "reward", x: 400, y: groundY },
+          { type: "chainsaw", x: 400, y: groundY },
+          { type: "enemies", x: 400, y: groundY },
+          { type: "reward", x: 400, y: groundY },
+
+
+
+
+        ]
+
+      }
     ];
     window.opspark.levelData = levelData;
   };
