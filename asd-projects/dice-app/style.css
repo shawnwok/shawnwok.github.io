@@ -1,0 +1,7 @@
+/* TODO 1: Style the die element */
+#die {
+  height: 100px;
+  width: 100px;
+  background-color: lightgray;
+  position: relative;
+}
