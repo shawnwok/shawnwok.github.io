@@ -1,8 +1,8 @@
 /* global $, sessionStorage */
 
 $(document).ready(runProgram); // wait for the HTML / CSS elements of the page to fully load, then execute runProgram()
-  
-function runProgram(){
+
+function runProgram() {
   ////////////////////////////////////////////////////////////////////////////////
   //////////////////////////// SETUP /////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
@@ -10,12 +10,27 @@ function runProgram(){
   // Constant Variables
   var FRAME_RATE = 60;
   var FRAMES_PER_SECOND_INTERVAL = 1000 / FRAME_RATE;
-  
-  // Game Item Objects
 
+  // Key codes for arrow keys (TODO 3)
+  const KEY = {
+    ENTER: 13,
+    LEFT: 37,
+    UP: 38,
+    RIGHT: 39,
+    DOWN: 40,
+  };
+
+  // Game Item Objects
+  // TODO 4: Declare walker variable with position and speed properties
+  var walker = {
+    x: 0,
+    y: 0,
+    speedX: 0,
+    speedY: 0,
+  };
 
   // one-time setup
-  var interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)
+  var interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL); // execute newFrame every 0.0166 seconds (60 Frames per second)
 
   /* 
   This section is where you set up event listeners for user input.
@@ -23,7 +38,8 @@ function runProgram(){
 
   Note: You can have multiple event listeners for different types of events.
   */
-  $(document).on('eventType', handleEvent);                          
+  $(document).on("keydown", handleKeyDown);
+  $(document).on("keyup", handleKeyUp);
 
   ////////////////////////////////////////////////////////////////////////////////
   ///////////////////////// CORE LOGIC ///////////////////////////////////////////
@@ -34,25 +50,77 @@ function runProgram(){
   by calling this function and executing the code inside.
   */
   function newFrame() {
-    
-
+    repositionGameItem();
+    wallCollision();
+    redrawGameItem();
   }
-  
+
   /* 
   This section is where you set up the event handlers for user input.
   For example, if you wanted to make an event handler for a click event, you should rename this function to 'handleClick', then write the code that should execute when the click event occurs.
   
   Note: You can have multiple event handlers for different types of events.
   */
-  function handleEvent(event) {
+  function handleKeyDown(event) {
+    // TODO 3 & 7: Check which arrow key was pressed and update walker speed
+    if (event.which === KEY.LEFT) {
+      walker.speedX = -5;
+    }
+    if (event.which === KEY.UP) {
+      walker.speedY = -5;
+    }
+    if (event.which === KEY.RIGHT) {
+      walker.speedX = 5;
+    }
+    if (event.which === KEY.DOWN) {
+      walker.speedY = 5;
+    }
+  }
 
+  // TODO 8: Handle key release to stop movement
+  function handleKeyUp(event) {
+    if (event.which === KEY.LEFT || event.which === KEY.RIGHT) {
+      walker.speedX = 0;
+    }
+    if (event.which === KEY.UP || event.which === KEY.DOWN) {
+      walker.speedY = 0;
+    }
   }
 
   ////////////////////////////////////////////////////////////////////////////////
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
+  // TODO 5: Update walker position based on speed
+  function repositionGameItem() {
+    walker.x += walker.speedX;
+    walker.y += walker.speedY;
+  }
 
-  
+  // TODO 6: Draw walker at its current position
+  function redrawGameItem() {
+    $("#walker").css("left", walker.x);
+    $("#walker").css("top", walker.y);
+  }
+
+  // TODO 9: Prevent walker from leaving the board
+  function wallCollision() {
+    // Check left boundary
+    if (walker.x < 0) {
+      walker.x -= walker.speedX;
+    }
+    // Check right boundary
+    if (walker.x + $("#walker").width() > $("#board").width()) {
+      walker.x -= walker.speedX;
+    }
+    // Check top boundary
+    if (walker.y < 0) {
+      walker.y -= walker.speedY;
+    }
+    // Check bottom boundary
+    if (walker.y + $("#walker").height() > $("#board").height()) {
+      walker.y -= walker.speedY;
+    }
+  }
   function endGame() {
     // stop the interval timer
     clearInterval(interval);
@@ -60,5 +128,4 @@ function runProgram(){
     // turn off event handlers
     $(document).off();
   }
-  
 }

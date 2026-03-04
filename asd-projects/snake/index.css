@@ -1,4 +1,3 @@
-
 body {
   background-color: darkgreen;
 }
@@ -10,11 +9,13 @@ body {
   background-color: black;
 }
 
-#score, #highScore {
+#score,
+#highScore {
   color: white;
 }
 
-.snake, .apple {
+.snakeSquare,
+.apple {
   display: block;
   width: 20px;
   height: 20px;
@@ -22,7 +23,7 @@ body {
   user-select: none;
 }
 
-.snake {
+.snakeSquare {
   background-color: green;
   z-index: 2;
 }

@@ -73,13 +73,13 @@ function init() {
 function update() {
   // TODO 6, Part 2: Fill in the update function's code block
   if (started) {
-    moveSnake();
+  moveSnake();
   }
-
+  
   if (hasHitWall() || hasCollidedWithSnake()) {
     endGame();
   }
-
+  
   if (hasCollidedWithApple()) {
     handleAppleCollision();
   }
@@ -146,7 +146,7 @@ function moveSnake() {
   } else if (snake.head.direction === "down") {
     snake.head.row++;
   }
-
+  
   // Update the head's position on screen
   repositionSquare(snake.head);
 }
@@ -342,16 +342,16 @@ function getRandomAvailablePosition() {
     spaceIsAvailable = true;
 
     /*
-      TODO 14: After generating the random position determine if that position is
-      not occupied by a snakeSquare in the snake's body. If it is then set 
-      spaceIsAvailable to false so that a new position is generated.
-    */
-    for (var i = 0; i < snake.body.length; i++) {
+        TODO 14: After generating the random position determine if that position is
+        not occupied by a snakeSquare in the snake's body. If it is then set 
+        spaceIsAvailable to false so that a new position is generated.
+      */
+      for (var i = 0; i < snake.body.length; i++) {
       if (
         snake.body[i].row === randomPosition.row &&
         snake.body[i].column === randomPosition.column
       ) {
-        spaceIsAvailable = false;
+          spaceIsAvailable = false;
         break;
       }
     }
