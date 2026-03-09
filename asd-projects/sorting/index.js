@@ -78,7 +78,6 @@ async function partition(array, left, right) {
 
 // TODO 1: Implement swap
 
-
 async function swap(array, i, j) {
   // swap elements at indexes i and j using a temporary variable
   let temp = array[i];
